@@ -65,7 +65,7 @@ const EventsPage = () => {
 
       <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
         {events.map((v, i) => (
-          <Link to={`/event/${v._id}`}
+          <div
             key={i}
             className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
           >
@@ -74,7 +74,7 @@ const EventsPage = () => {
               className="w-full h-72 object-cover"
               alt="event pic"
             />
-            <div className="p-4 bg-white">
+            <Link to={`/event/${v._id}`} className="p-4 bg-white">
               <p className="text-sm text-gray-500">
                 <span className="font-semibold">Date: </span>
                 {v.createdAt.substr(0, 10)}
@@ -82,7 +82,7 @@ const EventsPage = () => {
               <p  className="font-semibold text-lg text-gray-800 mt-2">
                 {v?.discription.substr(0, 35) + "......"}
               </p>
-            </div>
+            </Link>
             {isTeacher && (
               <div className="p-3 flex justify-end">
                 <button onClick={()=>handelDeleteEventHandler(v._id)} className="bg-red-500 text-white py-2 px-6 rounded cursor-pointer hover:bg-red-600">
@@ -92,7 +92,7 @@ const EventsPage = () => {
                 </button>
               </div>
             )}
-          </Link>
+          </div>
         ))}
       </div>
 
@@ -107,12 +107,16 @@ const EventsPage = () => {
                 Description
               </label>
               <textarea
-                type="text"
-                name="discription"
-                placeholder="Write description for event"
-                onChange={handelChange}
-                className="w-full border rounded p-2 mt-1 mb-3"
-              />
+  name="description"
+  placeholder="Write description for event"
+  onChange={handelChange}
+  onInput={(e) => {
+    e.target.style.height = "auto"; // Pehle height reset karega
+    e.target.style.height = `${Math.min(e.target.scrollHeight, 300)}px`; // Max height 500px tak hi rahegi
+  }}
+  className="w-full border rounded p-2 mt-1 mb-3 resize-none overflow-auto"
+  style={{ maxHeight: "300px" }} // CSS se bhi max-height set kar rahe hain
+/>
 
               {prewFile && (
                 <div className="flex justify-center">

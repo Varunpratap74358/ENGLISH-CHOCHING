@@ -52,7 +52,7 @@ const TeacherProfile = () => {
             Update Profile
           </button>
         )}
-        <div className="w-28 h-28 mx-auto mb-4 relative">
+        <div className="w-42 h-42 mx-auto mb-4 relative">
           {/* Image */}
           <img
             src={loading ? loadingImg : user?.profileImage?.url}
@@ -62,13 +62,15 @@ const TeacherProfile = () => {
           />
 
           {/* Hidden File Input */}
-          <input
-            type="file"
-            id="fileInput"
-            accept="image/*"
-            className="hidden"
-            onChange={(e) => handleImageChange(e)}
-          />
+         {
+          isTeacher &&  <input
+          type="file"
+          id="fileInput"
+          accept="image/*"
+          className="hidden"
+          onChange={(e) => handleImageChange(e)}
+        />
+         }
         </div>
 
         {/* User Information */}

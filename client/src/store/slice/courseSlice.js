@@ -37,9 +37,9 @@ export const AddCourse = (formData) => async (dispatch) => {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
-    toast.success(data.message);
     dispatch(courseSlice.actions.addCourseSuccess());
     dispatch(getAllSubjects());
+    toast.success(data.message);
   } catch (error) {
     console.log(error);
     toast.error(error?.response?.data?.message || "Somting went wrong");
